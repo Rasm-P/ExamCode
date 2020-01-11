@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dat.sem3.security</groupId>
-    <artifactId>testPipeline</artifactId>
+    <artifactId>ExamCode</artifactId>
     <version>1</version>
     <packaging>war</packaging>
 
-    <name>testPipeline</name>
+    <name>ExamCode</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

@@ -14,7 +14,7 @@
   - `xxx_test`
 - *(We suggest you always follow the naming pattern used above (xxx and xxx_test) for your databases)*
 - Create a REMOTE database on your Droplet with the same name as your dev-database (xxx above)
-- **Important:** Locate the file **.travis.yml** in the root, and change the script `CREATE DATABASE testPipeline_test;`to use the SAME name as your local test-database (xxx_test) above
+- **Important:** Locate the file **.travis.yml** in the root, and change the script `CREATE DATABASE examCode_test;`to use the SAME name as your local test-database (xxx_test) above
 - in a terminal (git bash for Windows Users) in the root of the project type: `mvn test`
 - Hopefully the previous step was a success, if not, fix the problem(s)
 

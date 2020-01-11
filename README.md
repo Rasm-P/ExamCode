@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Rasm-P/testPipeline.svg?branch=master)](https://travis-ci.org/Rasm-P/testPipeline)
+[![Build Status](https://travis-ci.org/Rasm-P/ExamCode.svg?branch=master)](https://travis-ci.org/Rasm-P/ExamCode)
 
 *Projects which are expected to use this code require all, or most of the following technologies:*
  - *JPA and REST*
