@@ -11,7 +11,6 @@ public class UserPrincipal implements Principal {
   private String username;
   private List<String> roles = new ArrayList<>();
 
-  /* Create a UserPrincipal, given the Entity class User*/
   public UserPrincipal(User user) {
     this.username = user.getUserName();
     this.roles = user.getRolesAsStrings();

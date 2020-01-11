@@ -69,8 +69,8 @@ public class LoginEndpoint {
   @Operation(summary = "Log in users/admin for the platform by returning a valid token that makes it possible to communicate data",
             tags = {"Login endpoint"},
             responses = {
-             //   @ApiResponse(
-             //           content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
                 @ApiResponse(responseCode = "200", description = "The requested token was returned and the user is logged in and free to communicate data"),
                 @ApiResponse(responseCode = "400", description = "No token was return and no login is possible")})
   public Response login(String jsonString) throws AuthenticationException {

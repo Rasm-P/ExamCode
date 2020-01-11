@@ -20,7 +20,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-//Uncomment the line below, to temporarily disable this test
 //@Disabled
 public class RenameMeResourceTest {
 
@@ -57,8 +56,6 @@ public class RenameMeResourceTest {
         httpServer.shutdownNow();
     }
     
-    // Setup the DataBase (used by the test-server and this test) in a known state BEFORE EACH TEST
-    //TODO -- Make sure to change the script below to use YOUR OWN entity class
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
@@ -80,7 +77,6 @@ public class RenameMeResourceTest {
         given().when().get("/xxx").then().statusCode(200);
     }
    
-    //This test assumes the database contains two rows
     @Test
     public void testDummyMsg() throws Exception {
         given()

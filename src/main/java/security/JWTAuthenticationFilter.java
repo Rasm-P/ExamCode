@@ -24,7 +24,6 @@ import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.ext.Provider;
 
-
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class JWTAuthenticationFilter implements ContainerRequestFilter {
@@ -38,14 +37,13 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
  public void filter(ContainerRequestContext request) throws IOException {
    if (isSecuredResource()) {
 
-     String token = request.getHeaderString("x-access-token");//
+     String token = request.getHeaderString("x-access-token");
      if (token == null) {
        request.abortWith(errorhandling.GenericExceptionMapper.makeErrRes("Not authenticated - do login", 403));
        return;
      }
      try {
        UserPrincipal user = getUserPrincipalFromTokenIfValid(token);
-       //What if the client had logged out????
        request.setSecurityContext(new JWTSecurityContext(user, request));
      } catch (AuthenticationException | ParseException | JOSEException ex) {
        Logger.getLogger(JWTAuthenticationFilter.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,7 +70,6 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
  private UserPrincipal getUserPrincipalFromTokenIfValid(String token)
          throws ParseException, JOSEException, AuthenticationException {
    SignedJWT signedJWT = SignedJWT.parse(token);
-   //Is it a valid token (generated with our shared key)
    JWSVerifier verifier = new MACVerifier(SharedSecret.getSharedKey());
 
    if (signedJWT.verify(verifier)) {
@@ -85,7 +82,6 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
      String[] rolesArray = roles.split(",");
      
      return new UserPrincipal(username, rolesArray);
-//     return new UserPrincipal(username, roles);
    } else {
      throw new JOSEException("User could not be extracted from token");
    }

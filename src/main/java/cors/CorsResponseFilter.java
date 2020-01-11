@@ -8,7 +8,7 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.ext.Provider;
 
-//Comment out the two annotations below to disable CORS-handling
+//Comment out to disable CORS-handling
 @Provider
 @PreMatching
 public class CorsResponseFilter implements ContainerResponseFilter {
@@ -16,7 +16,6 @@ public class CorsResponseFilter implements ContainerResponseFilter {
   @Override
   public void filter( ContainerRequestContext requestCtx, ContainerResponseContext res )
     throws IOException {
-    // LOG.info( "Executing REST response filter" );
     res.getHeaders().add("Access-Control-Allow-Origin", "*" ); //http://localhost:3000
     res.getHeaders().add("Access-Control-Allow-Credentials", "true" );
     res.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT" );

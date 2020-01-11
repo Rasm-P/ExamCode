@@ -11,7 +11,6 @@ public class FacadeExample {
     private static FacadeExample instance;
     private static EntityManagerFactory emf;
     
-    //Private Constructor to ensure Singleton
     private FacadeExample() {}
     
     public static FacadeExample getFacadeExample(EntityManagerFactory _emf) {
@@ -26,7 +25,6 @@ public class FacadeExample {
         return emf.createEntityManager();
     }
     
-    //TODO Remove/Change this before use
     public long getRenameMeCount(){
         EntityManager em = emf.createEntityManager();
         try{

@@ -27,7 +27,7 @@ public class JWTSecurityContext implements SecurityContext {
    }
    @Override
    public String getAuthenticationScheme() {
-       return "JWT"; //Only for INFO
+       return "JWT";
    }
 }
 
