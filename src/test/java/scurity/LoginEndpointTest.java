@@ -114,7 +114,7 @@ public class LoginEndpointTest {
                 .when()
                 .get("/info").then()
                 .statusCode(200)
-                .body("msg", equalTo("Hello anonymous"));
+                .body("msg", equalTo("Hello and Welcome"));
     }
 
     @Test
@@ -127,7 +127,7 @@ public class LoginEndpointTest {
                 .when()
                 .get("/info/admin").then()
                 .statusCode(200)
-                .body("msg", equalTo("Hello to (admin) User: admin"));
+                .body("msg", equalTo("Hello to Admin: admin"));
     }
 
     @Test

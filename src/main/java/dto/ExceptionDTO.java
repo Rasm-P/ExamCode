@@ -1,4 +1,4 @@
-package errorhandling;
+package dto;
 
 public class ExceptionDTO{
 

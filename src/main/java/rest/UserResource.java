@@ -28,21 +28,7 @@ public class UserResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getInfoForAll() {
-        return "{\"msg\":\"Hello anonymous\"}";
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("all")
-    public String allUsers() {
-
-        EntityManager em = EMF.createEntityManager();
-        try {
-            List<User> users = em.createQuery("select user from User user").getResultList();
-            return "[" + users.size() + "]";
-        } finally {
-            em.close();
-        }
+        return "{\"msg\":\"Hello and Welcome\"}";
     }
 
     @GET
@@ -60,6 +46,6 @@ public class UserResource {
     @RolesAllowed("admin")
     public String getFromAdmin() {
         String thisuser = securityContext.getUserPrincipal().getName();
-        return "{\"msg\": \"Hello to (admin) User: " + thisuser + "\"}";
+        return "{\"msg\": \"Hello to Admin: " + thisuser + "\"}";
     }
 }
