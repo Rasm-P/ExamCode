@@ -12,6 +12,7 @@ import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import java.net.URI;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -186,11 +187,12 @@ public class ResourceTest {
 
     @Test
     public void testGetTrucksByDate() {
+        System.out.println(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
         given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
                 .when()
-                .post("/truck/trucksByDate/" + date.toString())
+                .post("/truck/trucksByDate/" + date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString())
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
@@ -396,7 +398,7 @@ public class ResourceTest {
                 .contentType("application/json")
                 .accept(ContentType.JSON)
                 .when()
-                .post("/driver/driversByDate/" + date.toString())
+                .post("/driver/driversByDate/" + date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString())
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())

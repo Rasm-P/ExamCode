@@ -7,6 +7,7 @@ import entities.Role;
 import entities.Truck;
 import entities.User;
 import errorhandling.AuthenticationException;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import utils.EMF_Creator;
@@ -192,7 +193,7 @@ public class FacadeTest {
 
     @Test
     public void testGetDriversByDate() {
-        List<Driver> driverList = driverFacade.getDriversByDate(date.toString());
+        List<Driver> driverList = driverFacade.getDriversByDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
         assertEquals(driverList.size(), 1);
     }
 
@@ -232,7 +233,7 @@ public class FacadeTest {
 
     @Test
     public void testGetTrucksByDate() {
-        List<Truck> driverList = truckFacade.getTrucksByDate(date.toString());
+        List<Truck> driverList = truckFacade.getTrucksByDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
         assertEquals(driverList.size(), 1);
     }
 

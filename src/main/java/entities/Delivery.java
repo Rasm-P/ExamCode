@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -73,7 +74,7 @@ public class Delivery implements Serializable {
         this.shippingDate = shippingDate;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
-        this.dateAsString = shippingDate.toString();
+        this.dateAsString = shippingDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
     }
 
     public Date getShippingDate() {
