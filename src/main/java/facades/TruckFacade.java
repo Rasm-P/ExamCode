@@ -7,7 +7,9 @@ package facades;
 
 import entities.Truck;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -36,6 +38,50 @@ public class TruckFacade {
     }
 
     public List<Truck> getAllTrucks() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Truck> query
+                    = em.createQuery("SELECT t FROM Truck t", Truck.class);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Truck createTruck(Truck truck) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(truck);
+            em.getTransaction().commit();
+            return truck;
+        } finally {
+            em.close();
+        }
+    }
+
+    public Truck editTruck(Truck truck) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(truck);
+            em.getTransaction().commit();
+            return truck;
+        } finally {
+            em.close();
+        }
+    }
+
+    public Truck removeTruck(Long id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Truck truck = em.find(Truck.class, id);
+            em.remove(em.merge(truck));
+            em.getTransaction().commit();
+            return truck;
+        } finally {
+            em.close();
+        }
     }
 }
