@@ -17,7 +17,7 @@ import javax.persistence.TypedQuery;
  * @author rasmu
  */
 public class TruckFacade {
-    
+
     private static TruckFacade instance;
     private static EntityManagerFactory emf;
 

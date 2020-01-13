@@ -7,7 +7,6 @@ package facades;
 
 import entities.Cargo;
 import entities.Delivery;
-import entities.Truck;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,7 +17,7 @@ import javax.persistence.TypedQuery;
  * @author rasmu
  */
 public class DeliveryFacade {
-        
+
     private static DeliveryFacade instance;
     private static EntityManagerFactory emf;
 
@@ -38,7 +37,7 @@ public class DeliveryFacade {
         }
         return instance;
     }
-    
+
     public List<Delivery> getAllDeliveries() {
         EntityManager em = emf.createEntityManager();
         try {

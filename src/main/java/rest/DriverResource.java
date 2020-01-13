@@ -5,9 +5,9 @@
  */
 package rest;
 
-import dto.CargoDTO;
-import entities.Cargo;
-import facades.CargoFacade;
+import dto.DriverDTO;
+import entities.Driver;
+import facades.DriverFacade;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
@@ -30,23 +30,23 @@ import utils.EMF_Creator;
  *
  * @author rasmu
  */
-@Path("cargo")
-public class CargoResource {
+@Path("driver")
+public class DriverResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
-    public static final CargoFacade cargoFacade = CargoFacade.getFacade(EMF);
+    public static final DriverFacade driverFacade = DriverFacade.getFacade(EMF);
 
     @Context
     SecurityContext securityContext;
 
     @GET
-    @Path("/allCargo")
+    @Path("/allDrivers")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<CargoDTO> getAllCargo() {
-        List<Cargo> cargo = cargoFacade.getAllCargo();
-        List<CargoDTO> dto = new ArrayList<>();
-        for (Cargo c : cargo) {
-            dto.add(new CargoDTO(c));
+    public List<DriverDTO> getAllDrivers() {
+        List<Driver> driver = driverFacade.getAllDrivers();
+        List<DriverDTO> dto = new ArrayList<>();
+        for (Driver d : driver) {
+            dto.add(new DriverDTO(d));
         }
         return dto;
     }
@@ -55,26 +55,26 @@ public class CargoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed("manager")
-    public CargoDTO createCargo(Cargo cargo) {
-        Cargo newCargo = cargoFacade.createCargo(cargo);
-        return new CargoDTO(newCargo);
+    public DriverDTO createDriver(Driver driver) {
+        Driver newDriver = driverFacade.createDriver(driver);
+        return new DriverDTO(newDriver);
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("manager")
-    public CargoDTO editCargo(Cargo cargo) {
-        Cargo editCargo = cargoFacade.editCargo(cargo);
-        return new CargoDTO(editCargo);
+    public DriverDTO editDriver(Driver driver) {
+        Driver editDriver = driverFacade.editDriver(driver);
+        return new DriverDTO(editDriver);
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
     @RolesAllowed("manager")
-    public CargoDTO deleteCargo(@PathParam("id") Long id) {
-        Cargo deletedCargo = cargoFacade.removeCargo(id);
-        return new CargoDTO(deletedCargo);
+    public DriverDTO deleteDriver(@PathParam("id") Long id) {
+        Driver deletedDriver = driverFacade.removeDriver(id);
+        return new DriverDTO(deletedDriver);
     }
 }

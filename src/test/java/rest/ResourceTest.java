@@ -26,7 +26,6 @@ import static org.hamcrest.Matchers.notNullValue;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 //@Disabled
@@ -307,6 +306,65 @@ public class ResourceTest {
                 .header("x-access-token", securityToken)
                 .when()
                 .delete("/cargo/" + cargo.getId())
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void testGetAllDrivers() {
+        given()
+                .contentType("application/json")
+                .get("/driver/allDrivers").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size", is(1));
+    }
+
+    @Test
+    public void testCreateDriver() {
+        login("manager", "test");
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .when()
+                .body("{\n"
+                        + "  \"name\": \"string\",\n"
+                        + "  \"truck\": null \n"
+                        + "}")
+                .when()
+                .post("/driver")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void testEditDriver() {
+        login("manager", "test");
+        given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .body("{\n"
+                        + "  \"id\": " + driver.getId() + ",\n"
+                        + "  \"name\": \"newString\",\n"
+                        + "  \"truck\": null \n"
+                        + "}")
+                .when()
+                .put("/driver")
+                .then()
+                .body("name", equalTo("newString"))
+                .body("id", notNullValue());
+    }
+
+    @Test
+    public void testDeleteDriver() {
+        login("manager", "test");
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .when()
+                .delete("/driver/" + driver.getId())
                 .then()
                 .statusCode(200);
     }

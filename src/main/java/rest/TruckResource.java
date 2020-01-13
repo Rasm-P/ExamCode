@@ -8,16 +8,11 @@ package rest;
 import dto.TruckDTO;
 import entities.Truck;
 import facades.TruckFacade;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
@@ -43,7 +38,7 @@ public class TruckResource {
 
     @Context
     SecurityContext securityContext;
-    
+
     @GET
     @Path("/allTrucks")
     @Produces(MediaType.APPLICATION_JSON)
@@ -55,7 +50,7 @@ public class TruckResource {
         }
         return dto;
     }
-    
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -69,7 +64,7 @@ public class TruckResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("manager")
-    public TruckDTO editHobby(Truck truck) {
+    public TruckDTO editTruck(Truck truck) {
         Truck editTruck = truckFacade.editTruck(truck);
         return new TruckDTO(editTruck);
     }
@@ -78,7 +73,7 @@ public class TruckResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
     @RolesAllowed("manager")
-    public TruckDTO deleteHobby(@PathParam("id") Long id) {
+    public TruckDTO deleteTruck(@PathParam("id") Long id) {
         Truck deletedTruck = truckFacade.removeTruck(id);
         return new TruckDTO(deletedTruck);
     }

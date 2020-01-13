@@ -5,7 +5,8 @@
  */
 package facades;
 
-import entities.Cargo;
+import entities.Driver;
+import entities.Truck;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,13 +16,13 @@ import javax.persistence.TypedQuery;
  *
  * @author rasmu
  */
-public class CargoFacade {
+public class DriverFacade {
 
-    private static CargoFacade instance;
+    private static DriverFacade instance;
     private static EntityManagerFactory emf;
 
     //Private Constructor to ensure Singleton
-    private CargoFacade() {
+    private DriverFacade() {
     }
 
     /**
@@ -29,57 +30,65 @@ public class CargoFacade {
      * @param _emf
      * @return an instance of this facade class.
      */
-    public static CargoFacade getFacade(EntityManagerFactory _emf) {
+    public static DriverFacade getFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
-            instance = new CargoFacade();
+            instance = new DriverFacade();
         }
         return instance;
     }
 
-    public List<Cargo> getAllCargo() {
+    public List<Driver> getAllDrivers() {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Cargo> query
-                    = em.createQuery("SELECT c FROM Cargo c", Cargo.class);
+            TypedQuery<Driver> query
+                    = em.createQuery("SELECT d FROM Driver d", Driver.class);
             return query.getResultList();
         } finally {
             em.close();
         }
     }
 
-    public Cargo createCargo(Cargo cargo) {
+    public Driver createDriver(Driver driver) {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(cargo);
+            em.persist(driver);
             em.getTransaction().commit();
-            return cargo;
+            return driver;
         } finally {
             em.close();
         }
     }
 
-    public Cargo editCargo(Cargo cargo) {
+    public Driver editDriver(Driver driver) {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.merge(cargo);
+            em.merge(driver);
             em.getTransaction().commit();
-            return cargo;
+            return driver;
         } finally {
             em.close();
         }
     }
 
-    public Cargo removeCargo(Long id) {
+    public Driver removeDriver(Long id) {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            Cargo cargo = em.find(Cargo.class, id);
-            em.remove(em.merge(cargo));
+            Driver driver = em.find(Driver.class, id);
+
+            for (Truck t : TruckFacade.getFacade(emf).getAllTrucks()) {
+                if (t.getDriver().getId().equals(driver.getId())) {
+                    t.setDriver(null);
+                    em.merge(t);
+                }
+            }
+
+            em.remove(em.merge(driver));
             em.getTransaction().commit();
-            return cargo;
+            return driver;
         } finally {
             em.close();
         }
