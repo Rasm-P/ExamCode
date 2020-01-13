@@ -42,7 +42,7 @@ public class DriverResource {
     @GET
     @Path("/allDrivers")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public List<DriverDTO> getAllDrivers() {
         List<Driver> driver = driverFacade.getAllDrivers();
         List<DriverDTO> dto = new ArrayList<>();
@@ -55,7 +55,7 @@ public class DriverResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public DriverDTO createDriver(Driver driver) {
         Driver newDriver = driverFacade.createDriver(driver);
         return new DriverDTO(newDriver);
@@ -64,7 +64,7 @@ public class DriverResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public DriverDTO editDriver(Driver driver) {
         Driver editDriver = driverFacade.editDriver(driver);
         return new DriverDTO(editDriver);
@@ -73,15 +73,14 @@ public class DriverResource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public DriverDTO deleteDriver(@PathParam("id") Long id) {
         Driver deletedDriver = driverFacade.removeDriver(id);
         return new DriverDTO(deletedDriver);
     }
 
-    @POST
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/driversByDate/{date}")
     public List<DriverDTO> getDriversByDate(@PathParam("date") String date) {
         List<Driver> driver = driverFacade.getDriversByDate(date);

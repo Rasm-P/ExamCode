@@ -42,7 +42,7 @@ public class CargoResource {
     @GET
     @Path("/allCargo")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public List<CargoDTO> getAllCargo() {
         List<Cargo> cargo = cargoFacade.getAllCargo();
         List<CargoDTO> dto = new ArrayList<>();
@@ -55,7 +55,7 @@ public class CargoResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public CargoDTO createCargo(Cargo cargo) {
         Cargo newCargo = cargoFacade.createCargo(cargo);
         return new CargoDTO(newCargo);
@@ -64,7 +64,7 @@ public class CargoResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public CargoDTO editCargo(Cargo cargo) {
         Cargo editCargo = cargoFacade.editCargo(cargo);
         return new CargoDTO(editCargo);
@@ -73,7 +73,7 @@ public class CargoResource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public CargoDTO deleteCargo(@PathParam("id") Long id) {
         Cargo deletedCargo = cargoFacade.removeCargo(id);
         return new CargoDTO(deletedCargo);

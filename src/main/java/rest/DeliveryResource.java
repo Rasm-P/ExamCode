@@ -42,7 +42,7 @@ public class DeliveryResource {
     @GET
     @Path("/allDeliveries")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public List<DeliveryDTO> getAllDeliveries() {
         List<Delivery> delivery = deliveryFacade.getAllDeliveries();
         List<DeliveryDTO> dto = new ArrayList<>();
@@ -55,7 +55,7 @@ public class DeliveryResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public DeliveryDTO createDelivery(Delivery delivery) {
         Delivery newDelivery = deliveryFacade.createDelivery(delivery);
         return new DeliveryDTO(newDelivery);
@@ -64,7 +64,7 @@ public class DeliveryResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public DeliveryDTO editDelivery(Delivery delivery) {
         Delivery editDelivery = deliveryFacade.editDelivery(delivery);
         return new DeliveryDTO(editDelivery);
@@ -73,7 +73,7 @@ public class DeliveryResource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public DeliveryDTO deleteDelivery(@PathParam("id") Long id) {
         Delivery deletedDelivery = deliveryFacade.removeDelivery(id);
         return new DeliveryDTO(deletedDelivery);

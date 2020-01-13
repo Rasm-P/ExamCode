@@ -42,7 +42,7 @@ public class TruckResource {
     @GET
     @Path("/allTrucks")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public List<TruckDTO> getAllTrucks() {
         List<Truck> truck = truckFacade.getAllTrucks();
         List<TruckDTO> dto = new ArrayList<>();
@@ -55,7 +55,7 @@ public class TruckResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public TruckDTO createTruck(Truck truck) {
         Truck newTruck = truckFacade.createTruck(truck);
         return new TruckDTO(newTruck);
@@ -64,7 +64,7 @@ public class TruckResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public TruckDTO editTruck(Truck truck) {
         Truck editTruck = truckFacade.editTruck(truck);
         return new TruckDTO(editTruck);
@@ -73,15 +73,14 @@ public class TruckResource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    @RolesAllowed("manager")
+    @RolesAllowed("admin")
     public TruckDTO deleteTruck(@PathParam("id") Long id) {
         Truck deletedTruck = truckFacade.removeTruck(id);
         return new TruckDTO(deletedTruck);
     }
     
-    @POST
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/trucksByDate/{date}")
     public List<TruckDTO> getTrucksByDate(@PathParam("date") String date) {
         List<Truck> truck = truckFacade.getTrucksByDate(date);

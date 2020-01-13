@@ -61,8 +61,8 @@ public class ResourceTest {
         httpServer.shutdownNow();
     }
 
-    User manager = new User("manager", "test");
-    Role managerRole = new Role("manager");
+    User manager = new User("admin", "test");
+    Role managerRole = new Role("admin");
 
     Date date = new Date();
     Delivery delivery = new Delivery(date, "Aldershvilevej 2", "Byvej 64");
@@ -109,7 +109,6 @@ public class ResourceTest {
         securityToken = given()
                 .contentType("application/json")
                 .body(json)
-                //.when().post("/api/login")
                 .when().post("/login")
                 .then()
                 .extract().path("token");
@@ -122,7 +121,7 @@ public class ResourceTest {
 
     @Test
     public void testGetAllTrucks() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
@@ -134,7 +133,7 @@ public class ResourceTest {
 
     @Test
     public void testCreateTruck() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
@@ -154,7 +153,7 @@ public class ResourceTest {
 
     @Test
     public void testEditTruck() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
@@ -174,7 +173,7 @@ public class ResourceTest {
 
     @Test
     public void testDeleteTruck() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
@@ -192,7 +191,7 @@ public class ResourceTest {
                 .contentType("application/json")
                 .accept(ContentType.JSON)
                 .when()
-                .post("/truck/trucksByDate/" + date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString())
+                .get("/truck/trucksByDate/" + date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString())
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
@@ -201,7 +200,7 @@ public class ResourceTest {
 
     @Test
     public void testGetAllDeliveries() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
@@ -213,7 +212,7 @@ public class ResourceTest {
 
     @Test
     public void testCreateDilevery() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
@@ -234,7 +233,7 @@ public class ResourceTest {
 
     @Test
     public void testEditDilevery() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
@@ -255,7 +254,7 @@ public class ResourceTest {
 
     @Test
     public void testDeleteDilevery() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
@@ -268,7 +267,7 @@ public class ResourceTest {
 
     @Test
     public void testGetAllCargo() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
@@ -280,7 +279,7 @@ public class ResourceTest {
 
     @Test
     public void testCreateCargo() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
@@ -300,7 +299,7 @@ public class ResourceTest {
 
     @Test
     public void testEditCargo() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
@@ -320,7 +319,7 @@ public class ResourceTest {
 
     @Test
     public void testDeleteCargo() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
@@ -333,7 +332,7 @@ public class ResourceTest {
 
     @Test
     public void testGetAllDrivers() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
@@ -345,7 +344,7 @@ public class ResourceTest {
 
     @Test
     public void testCreateDriver() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
@@ -363,7 +362,7 @@ public class ResourceTest {
 
     @Test
     public void testEditDriver() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
@@ -381,7 +380,7 @@ public class ResourceTest {
 
     @Test
     public void testDeleteDriver() {
-        login("manager", "test");
+        login("admin", "test");
         given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
@@ -398,7 +397,7 @@ public class ResourceTest {
                 .contentType("application/json")
                 .accept(ContentType.JSON)
                 .when()
-                .post("/driver/driversByDate/" + date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString())
+                .get("/driver/driversByDate/" + date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString())
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
