@@ -42,7 +42,7 @@ public class Truck implements Serializable {
     @Column(name = "capacity")
     private int capacity;
     
-    @OneToOne(mappedBy = "truck")
+    @OneToOne
     private Driver driver;
     
     @OneToMany(mappedBy = "truck")

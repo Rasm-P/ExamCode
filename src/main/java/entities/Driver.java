@@ -37,7 +37,7 @@ public class Driver implements Serializable {
     @Column(name = "name")
     private String name;
     
-    @OneToOne
+    @OneToOne(mappedBy = "driver")
     private Truck truck;
 
     public Driver() {

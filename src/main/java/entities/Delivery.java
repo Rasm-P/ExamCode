@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -50,7 +51,7 @@ public class Delivery implements Serializable {
     private String toLocation;
     
     @OneToMany(mappedBy = "dilevery")
-    private List<Cargo> cargoList;
+    private List<Cargo> cargoList = new ArrayList<>();
     
     @ManyToOne
     private Truck truck;
@@ -112,6 +113,9 @@ public class Delivery implements Serializable {
         this.truck = truck;
     }
 
+    public void addCargo(Cargo cargo) {
+        cargoList.add(cargo);
+    }
     
     
     
