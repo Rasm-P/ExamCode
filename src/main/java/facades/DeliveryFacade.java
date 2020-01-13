@@ -42,7 +42,7 @@ public class DeliveryFacade {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Delivery> query
-                    = em.createQuery("SELECT d FROM Delivery d", Delivery.class);
+                    = em.createQuery("SELECT DISTINCT d FROM Delivery d", Delivery.class);
             return query.getResultList();
         } finally {
             em.close();

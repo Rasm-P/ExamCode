@@ -42,7 +42,7 @@ public class DriverFacade {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Driver> query
-                    = em.createQuery("SELECT d FROM Driver d", Driver.class);
+                    = em.createQuery("SELECT DISTINCT d FROM Driver d", Driver.class);
             return query.getResultList();
         } finally {
             em.close();

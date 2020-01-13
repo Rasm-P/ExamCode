@@ -5,8 +5,11 @@
  */
 package dto;
 
+import entities.Cargo;
 import entities.Delivery;
+import entities.Truck;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -17,12 +20,16 @@ public class DeliveryDTO {
     private Date shippingDate;
     private String fromLocation;
     private String toLocation;
+    private List<Cargo> cargoList;
+    private Truck truck;
 
     public DeliveryDTO(Delivery delivery) {
         this.id = delivery.getId();
         this.shippingDate = delivery.getShippingDate();
         this.fromLocation = delivery.getFromLocation();
         this.toLocation = delivery.getToLocation();
+        this.cargoList = delivery.getCargoList();
+        this.truck = delivery.getTruck();
     }
 
     public Long getId() {
@@ -56,6 +63,22 @@ public class DeliveryDTO {
     public void setToLocation(String toLocation) {
         this.toLocation = toLocation;
     }
+
+//    public List<Cargo> getCargoList() {
+//        return cargoList;
+//    }
+//
+//    public void setCargoList(List<Cargo> cargoList) {
+//        this.cargoList = cargoList;
+//    }
+//
+//    public Truck getTruck() {
+//        return truck;
+//    }
+
+//    public void setTruck(Truck truck) {
+//        this.truck = truck;
+//    }
     
     
 }

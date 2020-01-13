@@ -42,7 +42,7 @@ public class TruckFacade {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Truck> query
-                    = em.createQuery("SELECT t FROM Truck t", Truck.class);
+                    = em.createQuery("SELECT DISTINCT t FROM Truck t", Truck.class);
             return query.getResultList();
         } finally {
             em.close();

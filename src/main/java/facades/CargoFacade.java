@@ -41,7 +41,7 @@ public class CargoFacade {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Cargo> query
-                    = em.createQuery("SELECT c FROM Cargo c", Cargo.class);
+                    = em.createQuery("SELECT DISTINCT c FROM Cargo c", Cargo.class);
             return query.getResultList();
         } finally {
             em.close();
