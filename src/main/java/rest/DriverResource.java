@@ -5,15 +5,10 @@
  */
 package rest;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import dto.DriverDTO;
 import entities.Driver;
 import facades.DriverFacade;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
@@ -88,7 +83,7 @@ public class DriverResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/driversByDate/{date}")
-    public List<DriverDTO> getDriversByDate(@PathParam("date") String date) throws ParseException {
+    public List<DriverDTO> getDriversByDate(@PathParam("date") String date) {
         List<Driver> driver = driverFacade.getDriversByDate(date);
         List<DriverDTO> dto = new ArrayList<>();
         for (Driver d : driver) {

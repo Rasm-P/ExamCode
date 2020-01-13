@@ -185,6 +185,19 @@ public class ResourceTest {
     }
 
     @Test
+    public void testGetTrucksByDate() {
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .when()
+                .post("/truck/trucksByDate/" + date.toString())
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size", is(1));
+    }
+
+    @Test
     public void testGetAllDeliveries() {
         login("manager", "test");
         given()
@@ -376,14 +389,14 @@ public class ResourceTest {
                 .then()
                 .statusCode(200);
     }
-    
+
     @Test
     public void testGetDriversByDate() {
         given()
                 .contentType("application/json")
                 .accept(ContentType.JSON)
                 .when()
-                .post("/driver/driversByDate/" + delivery.getShippingDate().toString())
+                .post("/driver/driversByDate/" + date.toString())
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())

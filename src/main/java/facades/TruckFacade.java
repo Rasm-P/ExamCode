@@ -93,4 +93,16 @@ public class TruckFacade {
             em.close();
         }
     }
+
+    public List<Truck> getTrucksByDate(String date) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Truck> query
+                    = em.createQuery("SELECT t FROM Truck t JOIN t.dileveryList l WHERE l.dateAsString = :date", Truck.class);
+            query.setParameter("date", date);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

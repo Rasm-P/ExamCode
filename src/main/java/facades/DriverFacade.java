@@ -7,7 +7,6 @@ package facades;
 
 import entities.Driver;
 import entities.Truck;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -94,7 +93,7 @@ public class DriverFacade {
             em.close();
         }
     }
-    
+
     public List<Driver> getDriversByDate(String date) {
         EntityManager em = emf.createEntityManager();
         try {

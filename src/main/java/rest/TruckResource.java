@@ -78,4 +78,17 @@ public class TruckResource {
         Truck deletedTruck = truckFacade.removeTruck(id);
         return new TruckDTO(deletedTruck);
     }
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/trucksByDate/{date}")
+    public List<TruckDTO> getTrucksByDate(@PathParam("date") String date) {
+        List<Truck> truck = truckFacade.getTrucksByDate(date);
+        List<TruckDTO> dto = new ArrayList<>();
+        for (Truck t : truck) {
+            dto.add(new TruckDTO(t));
+        }
+        return dto;
+    }
 }

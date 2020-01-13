@@ -189,10 +189,9 @@ public class FacadeTest {
         assertEquals(driverFacade.getAllDrivers().size(), 0);
         assertEquals(d2, null);
     }
-    
+
     @Test
     public void testGetDriversByDate() {
-        System.out.println(date);
         List<Driver> driverList = driverFacade.getDriversByDate(date.toString());
         assertEquals(driverList.size(), 1);
     }
@@ -230,7 +229,13 @@ public class FacadeTest {
         assertEquals(truckFacade.getAllTrucks().size(), 0);
         assertEquals(t2, null);
     }
-    
+
+    @Test
+    public void testGetTrucksByDate() {
+        List<Truck> driverList = truckFacade.getTrucksByDate(date.toString());
+        assertEquals(driverList.size(), 1);
+    }
+
     @Test
     public void testGetVeryfiedUser() throws AuthenticationException {
         User u = userFacade.getVeryfiedUser(manager.getUserName(), "test");
