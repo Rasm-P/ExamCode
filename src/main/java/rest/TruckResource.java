@@ -42,6 +42,7 @@ public class TruckResource {
     @GET
     @Path("/allTrucks")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("manager")
     public List<TruckDTO> getAllTrucks() {
         List<Truck> truck = truckFacade.getAllTrucks();
         List<TruckDTO> dto = new ArrayList<>();

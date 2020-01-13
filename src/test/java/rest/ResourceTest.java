@@ -121,8 +121,10 @@ public class ResourceTest {
 
     @Test
     public void testGetAllTrucks() {
+        login("manager", "test");
         given()
                 .contentType("application/json")
+                .header("x-access-token", securityToken)
                 .get("/truck/allTrucks").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
@@ -184,8 +186,10 @@ public class ResourceTest {
 
     @Test
     public void testGetAllDeliveries() {
+        login("manager", "test");
         given()
                 .contentType("application/json")
+                .header("x-access-token", securityToken)
                 .get("/delivery/allDeliveries").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
@@ -249,8 +253,10 @@ public class ResourceTest {
 
     @Test
     public void testGetAllCargo() {
+        login("manager", "test");
         given()
                 .contentType("application/json")
+                .header("x-access-token", securityToken)
                 .get("/cargo/allCargo").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
@@ -312,8 +318,10 @@ public class ResourceTest {
 
     @Test
     public void testGetAllDrivers() {
+        login("manager", "test");
         given()
                 .contentType("application/json")
+                .header("x-access-token", securityToken)
                 .get("/driver/allDrivers").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
@@ -368,4 +376,21 @@ public class ResourceTest {
                 .then()
                 .statusCode(200);
     }
+    
+//    @Test
+//    public void testGetDriversByDate() {
+//        given()
+//                .contentType("application/json")
+//                .accept(ContentType.JSON)
+//                .when()
+//                .body("{\n"
+//                        + "  \"date\": \"2020-01-12\"\n"
+//                        + "}")
+//                .when()
+//                .post("/driver/driversByDate")
+//                .then()
+//                .assertThat()
+//                .statusCode(HttpStatus.OK_200.getStatusCode())
+//                .body("size", is(1));
+//    }
 }

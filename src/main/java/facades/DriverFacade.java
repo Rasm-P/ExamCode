@@ -7,6 +7,7 @@ package facades;
 
 import entities.Driver;
 import entities.Truck;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -89,6 +90,18 @@ public class DriverFacade {
             em.remove(em.merge(driver));
             em.getTransaction().commit();
             return driver;
+        } finally {
+            em.close();
+        }
+    }
+    
+    public List<Driver> getDriversByDate(Date date) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Driver> query
+                    = em.createQuery("SELECT d FROM Driver d JOIN d.truck.dileveryList l WHERE l.shippingDate = :date", Driver.class);
+            query.setParameter("date", date);
+            return query.getResultList();
         } finally {
             em.close();
         }

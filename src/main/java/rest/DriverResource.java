@@ -5,10 +5,15 @@
  */
 package rest;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import dto.DriverDTO;
 import entities.Driver;
 import facades.DriverFacade;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
@@ -42,6 +47,7 @@ public class DriverResource {
     @GET
     @Path("/allDrivers")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("manager")
     public List<DriverDTO> getAllDrivers() {
         List<Driver> driver = driverFacade.getAllDrivers();
         List<DriverDTO> dto = new ArrayList<>();
@@ -76,5 +82,21 @@ public class DriverResource {
     public DriverDTO deleteDriver(@PathParam("id") Long id) {
         Driver deletedDriver = driverFacade.removeDriver(id);
         return new DriverDTO(deletedDriver);
+    }
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/driversByDate")
+    public List<DriverDTO> getDriversByDate(String jsonDate) throws ParseException {
+        JsonObject json = new JsonParser().parse(jsonDate).getAsJsonObject();
+    String da = json.get("date").getAsString();
+    Date date = new SimpleDateFormat("dd/MM/yyyy").parse(da);
+        List<Driver> driver = driverFacade.getDriversByDate(date);
+        List<DriverDTO> dto = new ArrayList<>();
+        for (Driver d : driver) {
+            dto.add(new DriverDTO(d));
+        }
+        return dto;
     }
 }

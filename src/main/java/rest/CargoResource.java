@@ -42,6 +42,7 @@ public class CargoResource {
     @GET
     @Path("/allCargo")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("manager")
     public List<CargoDTO> getAllCargo() {
         List<Cargo> cargo = cargoFacade.getAllCargo();
         List<CargoDTO> dto = new ArrayList<>();

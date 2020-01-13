@@ -6,6 +6,7 @@ import entities.Driver;
 import entities.Role;
 import entities.Truck;
 import entities.User;
+import errorhandling.AuthenticationException;
 import java.util.Date;
 import java.util.List;
 import utils.EMF_Creator;
@@ -188,6 +189,13 @@ public class FacadeTest {
         assertEquals(driverFacade.getAllDrivers().size(), 0);
         assertEquals(d2, null);
     }
+    
+    @Test
+    public void testGetDriversByDate() {
+        System.out.println(date);
+        List<Driver> driverList = driverFacade.getDriversByDate(date);
+        assertEquals(driverList.size(), 1);
+    }
 
     @Test
     public void testGetAllTruck() {
@@ -221,6 +229,12 @@ public class FacadeTest {
         }
         assertEquals(truckFacade.getAllTrucks().size(), 0);
         assertEquals(t2, null);
+    }
+    
+    @Test
+    public void testGetVeryfiedUser() throws AuthenticationException {
+        User u = userFacade.getVeryfiedUser(manager.getUserName(), "test");
+        assertEquals(u.getUserName(), manager.getUserName());
     }
 
 }

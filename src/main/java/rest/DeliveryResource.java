@@ -42,6 +42,7 @@ public class DeliveryResource {
     @GET
     @Path("/allDeliveries")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("manager")
     public List<DeliveryDTO> getAllDeliveries() {
         List<Delivery> delivery = deliveryFacade.getAllDeliveries();
         List<DeliveryDTO> dto = new ArrayList<>();
