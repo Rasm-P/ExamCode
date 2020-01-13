@@ -12,12 +12,14 @@ import entities.Truck;
  * @author rasmu
  */
 public class TruckDTO {
+    private Long id;
     private String name;
     private int capacity;
 
     public TruckDTO(Truck truck) {
         this.name = truck.getName();
         this.capacity = truck.getCapacity();
+        this.id = truck.getId();
     }
 
     public String getName() {
@@ -34,6 +36,14 @@ public class TruckDTO {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
     
     

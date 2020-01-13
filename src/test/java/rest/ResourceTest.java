@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 //@Disabled
-public class RenameMeResourceTest {
+public class ResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
@@ -61,7 +61,7 @@ public class RenameMeResourceTest {
         httpServer.shutdownNow();
     }
 
-    User manager = new User("manager", "tessdt");
+    User manager = new User("manager", "test");
     Role managerRole = new Role("manager");
 
     Date date = new Date();
@@ -77,7 +77,7 @@ public class RenameMeResourceTest {
             em.getTransaction().begin();
             em.createQuery("delete from User").executeUpdate();
             em.createQuery("delete from Role").executeUpdate();
-            
+
             em.createQuery("delete from Cargo").executeUpdate();
             em.createQuery("delete from Delivery").executeUpdate();
             em.createQuery("delete from Truck").executeUpdate();
@@ -119,9 +119,9 @@ public class RenameMeResourceTest {
     private void logOut() {
         securityToken = null;
     }
-    
+
     @Test
-    public void testGetAllHobbies() {
+    public void testGetAllTrucks() {
         given()
                 .contentType("application/json")
                 .get("/truck/allTrucks").then()
@@ -130,52 +130,56 @@ public class RenameMeResourceTest {
                 .body("size", is(1));
     }
 
-//    @Test
-//    public void testCreateHobby() {
-//        login("admin", "test");
-//        given()
-//                .contentType("application/json")
-//                .accept(ContentType.JSON)
-//                .header("x-access-token", securityToken)
-//                .when()
-//                .body("{\n"
-//                        + "  \"name\": \"string\",\n"
-//                        + "  \"description\": \"string\"\n"
-//                        + "}")
-//                .when()
-//                .post("/hobby")
-//                .then()
-//                .statusCode(200);
-//    }
+    @Test
+    public void testCreateTruck() {
+        login("manager", "test");
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .when()
+                .body("{\n"
+                        + "  \"name\": \"string\",\n"
+                        + "  \"capacity\": 0,\n"
+                        + "  \"driver\": null,\n"
+                        + "  \"dileveryList\": []\n"
+                        + "}")
+                .when()
+                .post("/truck")
+                .then()
+                .statusCode(200);
+    }
 
-//    @Test
-//    public void testEditHobby() {
-//        login("admin", "test");
-//        given()
-//                .contentType("application/json")
-//                .header("x-access-token", securityToken)
-//                .body("{\n"
-//                        + "  \"id\": " + hobby.getId() + ",\n"
-//                        + "  \"name\": \"newstring\",\n"
-//                        + "  \"description\": \"string\"\n"
-//                        + "}")
-//                .when()
-//                .put("/hobby")
-//                .then()
-//                .body("name", equalTo("newstring"))
-//                .body("id", notNullValue());
-//    }
-//
-//    @Test
-//    public void testDeleteHobby() {
-//        login("admin", "test");
-//        given()
-//                .contentType("application/json")
-//                .accept(ContentType.JSON)
-//                .header("x-access-token", securityToken)
-//                .when()
-//                .delete("/hobby/" + hobby.getId())
-//                .then()
-//                .statusCode(200);
-//    }
+    @Test
+    public void testEditTruck() {
+        login("manager", "test");
+        given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .body("{\n"
+                        + "  \"id\": " + truck.getId() + ",\n"
+                        + "  \"name\": \"newString\",\n"
+                        + "  \"capacity\": 0,\n"
+                        + "  \"driver\": null,\n"
+                        + "  \"dileveryList\": []\n"
+                        + "}")
+                .when()
+                .put("/truck")
+                .then()
+                .body("name", equalTo("newString"))
+                .body("id", notNullValue());
+    }
+
+    @Test
+    public void testDeleteTruck() {
+        login("manager", "test");
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .when()
+                .delete("/truck/" + truck.getId())
+                .then()
+                .statusCode(200);
+    }
 }

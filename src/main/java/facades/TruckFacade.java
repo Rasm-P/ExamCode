@@ -5,6 +5,7 @@
  */
 package facades;
 
+import entities.Delivery;
 import entities.Truck;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -77,6 +78,14 @@ public class TruckFacade {
         try {
             em.getTransaction().begin();
             Truck truck = em.find(Truck.class, id);
+
+            for (Delivery d : DeliveryFacade.getFacade(emf).getAllDeliveries()) {
+                if (d.getTruck().getId().equals(truck.getId())) {
+                    d.setTruck(null);
+                    em.merge(d);
+                }
+            }
+
             em.remove(em.merge(truck));
             em.getTransaction().commit();
             return truck;

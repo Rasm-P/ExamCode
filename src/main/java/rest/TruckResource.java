@@ -77,7 +77,7 @@ public class TruckResource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    @RolesAllowed("admin")
+    @RolesAllowed("manager")
     public TruckDTO deleteHobby(@PathParam("id") Long id) {
         Truck deletedTruck = truckFacade.removeTruck(id);
         return new TruckDTO(deletedTruck);
