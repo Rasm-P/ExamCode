@@ -182,4 +182,69 @@ public class ResourceTest {
                 .then()
                 .statusCode(200);
     }
+
+    @Test
+    public void testGetAllDeliveries() {
+        given()
+                .contentType("application/json")
+                .get("/delivery/allDeliveries").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size", is(1));
+    }
+
+    @Test
+    public void testCreateDilevery() {
+        login("manager", "test");
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .when()
+                .body("{\n"
+                        + "  \"shippingDate\": \"2020-01-13T10:56:04.970Z\",\n"
+                        + "  \"fromLocation\": \"string\",\n"
+                        + "  \"toLocation\": \"string\",\n"
+                        + "  \"cargoList\": [],\n"
+                        + "  \"truck\": null \n"
+                        + "}")
+                .when()
+                .post("/delivery")
+                .then()
+                .statusCode(200);
+    }
+    
+    @Test
+    public void testEditDilevery() {
+        login("manager", "test");
+        given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .body("{\n"
+                        + "  \"id\": " + delivery.getId() + ",\n"
+                        + "  \"shippingDate\": \"2020-01-13T10:56:04.970Z\",\n"
+                        + "  \"fromLocation\": \"newString\",\n"
+                        + "  \"toLocation\": \"string\",\n"
+                        + "  \"cargoList\": [],\n"
+                        + "  \"truck\": null \n"
+                        + "}")
+                .when()
+                .put("/delivery")
+                .then()
+                .body("fromLocation", equalTo("newString"))
+                .body("id", notNullValue());
+    }
+    
+    @Test
+    public void testDeleteDilevery() {
+        login("manager", "test");
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .when()
+                .delete("/delivery/" + delivery.getId())
+                .then()
+                .statusCode(200);
+    }
 }

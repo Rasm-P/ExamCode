@@ -5,7 +5,9 @@
  */
 package facades;
 
+import entities.Cargo;
 import entities.Delivery;
+import entities.Truck;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -43,6 +45,51 @@ public class DeliveryFacade {
             TypedQuery<Delivery> query
                     = em.createQuery("SELECT d FROM Delivery d", Delivery.class);
             return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Delivery createDelivery(Delivery delivery) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(delivery);
+            em.getTransaction().commit();
+            return delivery;
+        } finally {
+            em.close();
+        }
+    }
+
+    public Delivery editDelivery(Delivery delivery) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(delivery);
+            em.getTransaction().commit();
+            return delivery;
+        } finally {
+            em.close();
+        }
+    }
+
+    public Delivery removeDelivery(Long id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Delivery delivery = em.find(Delivery.class, id);
+
+            for (Cargo c : CargoFacade.getFacade(emf).getAllCargo()) {
+                if (c.getDilevery().getId().equals(delivery.getId())) {
+                    c.setDilevery(null);
+                    em.merge(c);
+                }
+            }
+
+            em.remove(em.merge(delivery));
+            em.getTransaction().commit();
+            return delivery;
         } finally {
             em.close();
         }
