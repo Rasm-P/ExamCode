@@ -48,4 +48,41 @@ public class CargoFacade {
             em.close();
         }
     }
+
+    public Cargo createCargo(Cargo cargo) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(cargo);
+            em.getTransaction().commit();
+            return cargo;
+        } finally {
+            em.close();
+        }
+    }
+
+    public Cargo editCargo(Cargo cargo) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(cargo);
+            em.getTransaction().commit();
+            return cargo;
+        } finally {
+            em.close();
+        }
+    }
+
+    public Cargo removeCargo(Long id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Cargo cargo = em.find(Cargo.class, id);
+            em.remove(em.merge(cargo));
+            em.getTransaction().commit();
+            return cargo;
+        } finally {
+            em.close();
+        }
+    }
 }

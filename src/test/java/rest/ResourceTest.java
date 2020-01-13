@@ -213,7 +213,7 @@ public class ResourceTest {
                 .then()
                 .statusCode(200);
     }
-    
+
     @Test
     public void testEditDilevery() {
         login("manager", "test");
@@ -234,7 +234,7 @@ public class ResourceTest {
                 .body("fromLocation", equalTo("newString"))
                 .body("id", notNullValue());
     }
-    
+
     @Test
     public void testDeleteDilevery() {
         login("manager", "test");
@@ -244,6 +244,69 @@ public class ResourceTest {
                 .header("x-access-token", securityToken)
                 .when()
                 .delete("/delivery/" + delivery.getId())
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void testGetAllCargo() {
+        given()
+                .contentType("application/json")
+                .get("/cargo/allCargo").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size", is(1));
+    }
+
+    @Test
+    public void testCreateCargo() {
+        login("manager", "test");
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .when()
+                .body("{\n"
+                        + "  \"name\": \"string\",\n"
+                        + "  \"weight\": 0,\n"
+                        + "  \"units\": 0,\n"
+                        + "  \"dilevery\": null \n"
+                        + "}")
+                .when()
+                .post("/cargo")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void testEditCargo() {
+        login("manager", "test");
+        given()
+                .contentType("application/json")
+                .header("x-access-token", securityToken)
+                .body("{\n"
+                        + "  \"id\": " + cargo.getId() + ",\n"
+                        + "  \"name\": \"newString\",\n"
+                        + "  \"weight\": 0,\n"
+                        + "  \"units\": 0,\n"
+                        + "  \"dilevery\": null \n"
+                        + "}")
+                .when()
+                .put("/cargo")
+                .then()
+                .body("name", equalTo("newString"))
+                .body("id", notNullValue());
+    }
+
+    @Test
+    public void testDeleteCargo() {
+        login("manager", "test");
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .header("x-access-token", securityToken)
+                .when()
+                .delete("/cargo/" + cargo.getId())
                 .then()
                 .statusCode(200);
     }
