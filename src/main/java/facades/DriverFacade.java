@@ -95,11 +95,11 @@ public class DriverFacade {
         }
     }
     
-    public List<Driver> getDriversByDate(Date date) {
+    public List<Driver> getDriversByDate(String date) {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Driver> query
-                    = em.createQuery("SELECT d FROM Driver d JOIN d.truck.dileveryList l WHERE l.shippingDate = :date", Driver.class);
+                    = em.createQuery("SELECT d FROM Driver d JOIN d.truck.dileveryList l WHERE l.dateAsString = :date", Driver.class);
             query.setParameter("date", date);
             return query.getResultList();
         } finally {

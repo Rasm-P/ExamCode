@@ -377,20 +377,16 @@ public class ResourceTest {
                 .statusCode(200);
     }
     
-//    @Test
-//    public void testGetDriversByDate() {
-//        given()
-//                .contentType("application/json")
-//                .accept(ContentType.JSON)
-//                .when()
-//                .body("{\n"
-//                        + "  \"date\": \"2020-01-12\"\n"
-//                        + "}")
-//                .when()
-//                .post("/driver/driversByDate")
-//                .then()
-//                .assertThat()
-//                .statusCode(HttpStatus.OK_200.getStatusCode())
-//                .body("size", is(1));
-//    }
+    @Test
+    public void testGetDriversByDate() {
+        given()
+                .contentType("application/json")
+                .accept(ContentType.JSON)
+                .when()
+                .post("/driver/driversByDate/" + delivery.getShippingDate().toString())
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size", is(1));
+    }
 }

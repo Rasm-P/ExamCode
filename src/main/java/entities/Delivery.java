@@ -44,6 +44,8 @@ public class Delivery implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date shippingDate;
     
+    private String dateAsString;
+    
     @Column(name = "fromLocation")
     private String fromLocation;
     
@@ -71,6 +73,7 @@ public class Delivery implements Serializable {
         this.shippingDate = shippingDate;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
+        this.dateAsString = shippingDate.toString();
     }
 
     public Date getShippingDate() {

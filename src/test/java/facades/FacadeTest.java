@@ -193,7 +193,7 @@ public class FacadeTest {
     @Test
     public void testGetDriversByDate() {
         System.out.println(date);
-        List<Driver> driverList = driverFacade.getDriversByDate(date);
+        List<Driver> driverList = driverFacade.getDriversByDate(date.toString());
         assertEquals(driverList.size(), 1);
     }
 

@@ -83,15 +83,12 @@ public class DriverResource {
         Driver deletedDriver = driverFacade.removeDriver(id);
         return new DriverDTO(deletedDriver);
     }
-    
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/driversByDate")
-    public List<DriverDTO> getDriversByDate(String jsonDate) throws ParseException {
-        JsonObject json = new JsonParser().parse(jsonDate).getAsJsonObject();
-    String da = json.get("date").getAsString();
-    Date date = new SimpleDateFormat("dd/MM/yyyy").parse(da);
+    @Path("/driversByDate/{date}")
+    public List<DriverDTO> getDriversByDate(@PathParam("date") String date) throws ParseException {
         List<Driver> driver = driverFacade.getDriversByDate(date);
         List<DriverDTO> dto = new ArrayList<>();
         for (Driver d : driver) {
