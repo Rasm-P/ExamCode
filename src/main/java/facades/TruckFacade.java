@@ -94,15 +94,27 @@ public class TruckFacade {
         }
     }
 
-    public List<Truck> getTrucksByDate(String date) {
+    public List<Truck> getBookedTrucksByDate(String date) {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Truck> query
-                    = em.createQuery("SELECT t FROM Truck t JOIN t.dileveryList l WHERE l.dateAsString = :date", Truck.class);
+                    = em.createQuery("SELECT DISTINCT t FROM Truck t JOIN t.dileveryList l WHERE l.dateAsString = :date", Truck.class);
             query.setParameter("date", date);
             return query.getResultList();
         } finally {
             em.close();
         }
     }
+    
+//    public List<Truck> getNonBookedTrucksByDate(String date) {
+//        EntityManager em = emf.createEntityManager();
+//        try {
+//            TypedQuery<Truck> query
+//                    = em.createQuery("SELECT DISTINCT t FROM Truck t JOIN t.dileveryList l WHERE l.dateAsString = :date", Truck.class);
+//            query.setParameter("date", null);
+//            return query.getResultList();
+//        } finally {
+//            em.close();
+//        }
+//    }
 }

@@ -82,8 +82,8 @@ public class DriverResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/driversByDate/{date}")
-    public List<DriverDTO> getDriversByDate(@PathParam("date") String date) {
-        List<Driver> driver = driverFacade.getDriversByDate(date);
+    public List<DriverDTO> getBookedDriversByDate(@PathParam("date") String date) {
+        List<Driver> driver = driverFacade.getBookedDriversByDate(date);
         List<DriverDTO> dto = new ArrayList<>();
         for (Driver d : driver) {
             dto.add(new DriverDTO(d));

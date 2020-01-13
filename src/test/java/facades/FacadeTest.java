@@ -193,7 +193,7 @@ public class FacadeTest {
 
     @Test
     public void testGetDriversByDate() {
-        List<Driver> driverList = driverFacade.getDriversByDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
+        List<Driver> driverList = driverFacade.getBookedDriversByDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
         assertEquals(driverList.size(), 1);
     }
 
@@ -233,7 +233,7 @@ public class FacadeTest {
 
     @Test
     public void testGetTrucksByDate() {
-        List<Truck> driverList = truckFacade.getTrucksByDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
+        List<Truck> driverList = truckFacade.getBookedTrucksByDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString());
         assertEquals(driverList.size(), 1);
     }
 

@@ -82,12 +82,24 @@ public class TruckResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/trucksByDate/{date}")
-    public List<TruckDTO> getTrucksByDate(@PathParam("date") String date) {
-        List<Truck> truck = truckFacade.getTrucksByDate(date);
+    public List<TruckDTO> getBookedTrucksByDate(@PathParam("date") String date) {
+        List<Truck> truck = truckFacade.getBookedTrucksByDate(date);
         List<TruckDTO> dto = new ArrayList<>();
         for (Truck t : truck) {
             dto.add(new TruckDTO(t));
         }
         return dto;
     }
+    
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Path("/trucksNonBookedByDate/{date}")
+//    public List<TruckDTO> getNonBookedTrucksByDate(@PathParam("date") String date) {
+//        List<Truck> truck = truckFacade.getNonBookedTrucksByDate(date);
+//        List<TruckDTO> dto = new ArrayList<>();
+//        for (Truck t : truck) {
+//            dto.add(new TruckDTO(t));
+//        }
+//        return dto;
+//    }
 }
