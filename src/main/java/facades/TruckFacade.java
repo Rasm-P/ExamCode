@@ -80,7 +80,7 @@ public class TruckFacade {
             Truck truck = em.find(Truck.class, id);
 
             for (Delivery d : DeliveryFacade.getFacade(emf).getAllDeliveries()) {
-                if (d.getTruck().getId().equals(truck.getId())) {
+                if (d.getTruck() != null && d.getTruck().getId().equals(truck.getId())) {
                     d.setTruck(null);
                     em.merge(d);
                 }
@@ -105,7 +105,7 @@ public class TruckFacade {
             em.close();
         }
     }
-    
+
 //    public List<Truck> getNonBookedTrucksByDate(String date) {
 //        EntityManager em = emf.createEntityManager();
 //        try {

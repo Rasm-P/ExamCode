@@ -6,20 +6,21 @@ import javax.persistence.EntityManagerFactory;
 import errorhandling.AuthenticationException;
 
 public class UserFacade {
-  
+
     private static EntityManagerFactory emf;
     private static UserFacade instance;
-    
-    private UserFacade(){}
-    
-    public static UserFacade getUserFacade (EntityManagerFactory _emf) {
+
+    private UserFacade() {
+    }
+
+    public static UserFacade getUserFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
             instance = new UserFacade();
         }
         return instance;
     }
-    
+
     public User getVeryfiedUser(String username, String password) throws AuthenticationException {
         EntityManager em = emf.createEntityManager();
         User user;

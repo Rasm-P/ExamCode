@@ -12,6 +12,7 @@ import entities.Driver;
  * @author rasmu
  */
 public class DriverDTO {
+
     private Long id;
     private String name;
 
@@ -35,6 +36,5 @@ public class DriverDTO {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
+
 }

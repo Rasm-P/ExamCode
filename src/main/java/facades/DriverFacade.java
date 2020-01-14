@@ -80,7 +80,7 @@ public class DriverFacade {
             Driver driver = em.find(Driver.class, id);
 
             for (Truck t : TruckFacade.getFacade(emf).getAllTrucks()) {
-                if (t.getDriver().getId().equals(driver.getId())) {
+                if (t.getDriver() != null && t.getDriver().getId().equals(driver.getId())) {
                     t.setDriver(null);
                     em.merge(t);
                 }

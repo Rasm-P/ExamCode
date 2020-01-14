@@ -80,7 +80,7 @@ public class DeliveryFacade {
             Delivery delivery = em.find(Delivery.class, id);
 
             for (Cargo c : CargoFacade.getFacade(emf).getAllCargo()) {
-                if (c.getDilevery().getId().equals(delivery.getId())) {
+                if (c.getDilevery() != null && c.getDilevery().getId().equals(delivery.getId())) {
                     c.setDilevery(null);
                     em.merge(c);
                 }

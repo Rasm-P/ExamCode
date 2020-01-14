@@ -33,10 +33,10 @@ public class Driver implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "name")
     private String name;
-    
+
     @OneToOne(mappedBy = "driver")
     private Truck truck;
 
@@ -70,5 +70,5 @@ public class Driver implements Serializable {
     public void setTruck(Truck truck) {
         this.truck = truck;
     }
-    
+
 }

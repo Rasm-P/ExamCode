@@ -28,62 +28,62 @@ import javax.ws.rs.ext.Provider;
 @Priority(Priorities.AUTHENTICATION)
 public class JWTAuthenticationFilter implements ContainerRequestFilter {
 
- private static final List<Class<? extends Annotation>> securityAnnotations
-         = Arrays.asList(DenyAll.class, PermitAll.class, RolesAllowed.class);
- @Context
- private ResourceInfo resourceInfo;
+    private static final List<Class<? extends Annotation>> securityAnnotations
+            = Arrays.asList(DenyAll.class, PermitAll.class, RolesAllowed.class);
+    @Context
+    private ResourceInfo resourceInfo;
 
- @Override   
- public void filter(ContainerRequestContext request) throws IOException {
-   if (isSecuredResource()) {
+    @Override
+    public void filter(ContainerRequestContext request) throws IOException {
+        if (isSecuredResource()) {
 
-     String token = request.getHeaderString("x-access-token");
-     if (token == null) {
-       request.abortWith(errorhandling.GenericExceptionMapper.makeErrRes("Not authenticated - do login", 403));
-       return;
-     }
-     try {
-       UserPrincipal user = getUserPrincipalFromTokenIfValid(token);
-       request.setSecurityContext(new JWTSecurityContext(user, request));
-     } catch (AuthenticationException | ParseException | JOSEException ex) {
-       Logger.getLogger(JWTAuthenticationFilter.class.getName()).log(Level.SEVERE, null, ex);
-       request.abortWith(errorhandling.GenericExceptionMapper.makeErrRes("Token not valid (timed out?)", 403));
-     }
-   }
- }
+            String token = request.getHeaderString("x-access-token");
+            if (token == null) {
+                request.abortWith(errorhandling.GenericExceptionMapper.makeErrRes("Not authenticated - do login", 403));
+                return;
+            }
+            try {
+                UserPrincipal user = getUserPrincipalFromTokenIfValid(token);
+                request.setSecurityContext(new JWTSecurityContext(user, request));
+            } catch (AuthenticationException | ParseException | JOSEException ex) {
+                Logger.getLogger(JWTAuthenticationFilter.class.getName()).log(Level.SEVERE, null, ex);
+                request.abortWith(errorhandling.GenericExceptionMapper.makeErrRes("Token not valid (timed out?)", 403));
+            }
+        }
+    }
 
- private boolean isSecuredResource() {
+    private boolean isSecuredResource() {
 
-   for (Class<? extends Annotation> securityClass : securityAnnotations) {
-     if (resourceInfo.getResourceMethod().isAnnotationPresent(securityClass)) {
-       return true;
-     }
-   }
-   for (Class<? extends Annotation> securityClass : securityAnnotations) {
-     if (resourceInfo.getResourceClass().isAnnotationPresent(securityClass)) {
-       return true;
-     }
-   }
-   return false;
- }
+        for (Class<? extends Annotation> securityClass : securityAnnotations) {
+            if (resourceInfo.getResourceMethod().isAnnotationPresent(securityClass)) {
+                return true;
+            }
+        }
+        for (Class<? extends Annotation> securityClass : securityAnnotations) {
+            if (resourceInfo.getResourceClass().isAnnotationPresent(securityClass)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
- private UserPrincipal getUserPrincipalFromTokenIfValid(String token)
-         throws ParseException, JOSEException, AuthenticationException {
-   SignedJWT signedJWT = SignedJWT.parse(token);
-   JWSVerifier verifier = new MACVerifier(SharedSecret.getSharedKey());
+    private UserPrincipal getUserPrincipalFromTokenIfValid(String token)
+            throws ParseException, JOSEException, AuthenticationException {
+        SignedJWT signedJWT = SignedJWT.parse(token);
+        JWSVerifier verifier = new MACVerifier(SharedSecret.getSharedKey());
 
-   if (signedJWT.verify(verifier)) {
-     if (new Date().getTime() > signedJWT.getJWTClaimsSet().getExpirationTime().getTime()) {
-       throw new AuthenticationException("Your Token is no longer valid");
-     }
-     String roles = signedJWT.getJWTClaimsSet().getClaim("roles").toString();
-     String username = signedJWT.getJWTClaimsSet().getClaim("username").toString();
-     
-     String[] rolesArray = roles.split(",");
-     
-     return new UserPrincipal(username, rolesArray);
-   } else {
-     throw new JOSEException("User could not be extracted from token");
-   }
- }
+        if (signedJWT.verify(verifier)) {
+            if (new Date().getTime() > signedJWT.getJWTClaimsSet().getExpirationTime().getTime()) {
+                throw new AuthenticationException("Your Token is no longer valid");
+            }
+            String roles = signedJWT.getJWTClaimsSet().getClaim("roles").toString();
+            String username = signedJWT.getJWTClaimsSet().getClaim("username").toString();
+
+            String[] rolesArray = roles.split(",");
+
+            return new UserPrincipal(username, rolesArray);
+        } else {
+            throw new JOSEException("User could not be extracted from token");
+        }
+    }
 }

@@ -12,7 +12,7 @@ public class ApplicationConfig extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();
         addRestResourceClasses(resources);
-        
+
         //These two Resource Classes are not auto discovered so we add them manually
         resources.add(OpenApiResource.class);
         resources.add(AcceptHeaderOpenApiResource.class);
@@ -21,10 +21,9 @@ public class ApplicationConfig extends Application {
     }
 
     /**
-     * Do not modify addRestResourceClasses() method.
-     * It is automatically populated with
-     * all resources defined in the project.
-     * If required, comment out calling this method in getClasses().
+     * Do not modify addRestResourceClasses() method. It is automatically
+     * populated with all resources defined in the project. If required, comment
+     * out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(cors.CorsRequestFilter.class);
@@ -40,5 +39,5 @@ public class ApplicationConfig extends Application {
         resources.add(security.LoginEndpoint.class);
         resources.add(security.RolesAllowedFilter.class);
     }
-    
+
 }

@@ -33,19 +33,19 @@ public class Cargo implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "name")
     private String name;
-    
+
     @Column(name = "weight")
     private double weight;
-    
+
     @Column(name = "units")
     private int units;
-    
+
     @ManyToOne
     private Delivery dilevery;
-    
+
     public Cargo() {
     }
 
@@ -94,6 +94,5 @@ public class Cargo implements Serializable {
     public void setDilevery(Delivery dilevery) {
         this.dilevery = dilevery;
     }
-    
-    
+
 }

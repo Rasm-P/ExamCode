@@ -12,6 +12,7 @@ import entities.Truck;
  * @author rasmu
  */
 public class TruckDTO {
+
     private Long id;
     private String name;
     private int capacity;
@@ -45,7 +46,5 @@ public class TruckDTO {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    
-    
+
 }

@@ -32,13 +32,13 @@ import utils.EMF_Creator;
  */
 @Path("truck")
 public class TruckResource {
-
+    
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
     public static final TruckFacade truckFacade = TruckFacade.getFacade(EMF);
-
+    
     @Context
     SecurityContext securityContext;
-
+    
     @GET
     @Path("/allTrucks")
     @Produces(MediaType.APPLICATION_JSON)
@@ -51,7 +51,7 @@ public class TruckResource {
         }
         return dto;
     }
-
+    
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -60,7 +60,7 @@ public class TruckResource {
         Truck newTruck = truckFacade.createTruck(truck);
         return new TruckDTO(newTruck);
     }
-
+    
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -69,7 +69,7 @@ public class TruckResource {
         Truck editTruck = truckFacade.editTruck(truck);
         return new TruckDTO(editTruck);
     }
-
+    
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
@@ -90,7 +90,7 @@ public class TruckResource {
         }
         return dto;
     }
-    
+
 //    @GET
 //    @Produces(MediaType.APPLICATION_JSON)
 //    @Path("/trucksNonBookedByDate/{date}")

@@ -35,16 +35,16 @@ public class Truck implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "name")
     private String name;
-    
+
     @Column(name = "capacity")
     private int capacity;
-    
+
     @OneToOne
     private Driver driver;
-    
+
     @OneToMany(mappedBy = "truck")
     private List<Delivery> dileveryList;
 
@@ -95,7 +95,5 @@ public class Truck implements Serializable {
     public void setDriver(Driver driver) {
         this.driver = driver;
     }
-    
-    
-    
+
 }

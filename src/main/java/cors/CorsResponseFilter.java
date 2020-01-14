@@ -12,13 +12,15 @@ import javax.ws.rs.ext.Provider;
 @Provider
 @PreMatching
 public class CorsResponseFilter implements ContainerResponseFilter {
-  private final static Logger LOG = Logger.getLogger(CorsResponseFilter.class.getName());
-  @Override
-  public void filter( ContainerRequestContext requestCtx, ContainerResponseContext res )
-    throws IOException {
-    res.getHeaders().add("Access-Control-Allow-Origin", "*" ); //http://localhost:3000
-    res.getHeaders().add("Access-Control-Allow-Credentials", "true" );
-    res.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT" );
-    res.getHeaders().add("Access-Control-Allow-Headers", "Origin, Accept, Content-Type, Authorization,x-access-token");
-  }
+
+    private final static Logger LOG = Logger.getLogger(CorsResponseFilter.class.getName());
+
+    @Override
+    public void filter(ContainerRequestContext requestCtx, ContainerResponseContext res)
+            throws IOException {
+        res.getHeaders().add("Access-Control-Allow-Origin", "*"); //http://localhost:3000
+        res.getHeaders().add("Access-Control-Allow-Credentials", "true");
+        res.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+        res.getHeaders().add("Access-Control-Allow-Headers", "Origin, Accept, Content-Type, Authorization,x-access-token");
+    }
 }
